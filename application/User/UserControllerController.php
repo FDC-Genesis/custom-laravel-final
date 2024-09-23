@@ -1,0 +1,1 @@
+/Users/fdc-genesis-webdev/Desktop/Tuts/custom-laravel/stubs/CustomController/resource.stub
