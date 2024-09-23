@@ -1,0 +1,42 @@
+<?php
+
+namespace Laravel\Model;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\AppModel;
+{{ authenticatable }}
+
+class {{ class }} extends AppModel {{ implements }}
+{
+    use HasFactory;
+
+    public function getAuthIdentifierName()
+    {
+        return 'id'; // or your primary key field
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->getKey(); // returns the primary key value
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password; // assuming you have a password field
+    }
+
+    public function getRememberToken()
+    {
+        return $this->remember_token; // assuming you have a remember_token field
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->remember_token = $value; // assuming you have a remember_token field
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token'; // the name of the column in the database
+    }
+}

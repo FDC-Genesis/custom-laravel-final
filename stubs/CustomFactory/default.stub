@@ -1,0 +1,19 @@
+<?php
+
+namespace Database\Factories\Laravel\Model;
+
+use Laravel\Model\{{ name }}; // Adjust this based on your namespace
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class {{ name }}Factory extends Factory
+{
+    protected $model = {{ name }}::class;
+
+    public function definition()
+    {
+        return [
+            //
+            
+        ];
+    }
+}
