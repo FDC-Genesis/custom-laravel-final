@@ -1,6 +1,7 @@
 <?php
 
 use Application\Admin\Controller\AdminController;
+use Application\User\Controller\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,18 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+[$adminRoute, $userRoute] = config('route.routes');
 
-Route::group(['prefix' => 'admin'], function(){
-
+// Admin Routes - Accessible under 'admin'
+Route::group($adminRoute, function () {
     Route::resource('/', AdminController::class)->only([
-        'index', 'show', 'edit', 'update', 'destroy'
+        'index', 'show', 'edit', 'update', 'destroy', 'create', 'store'
+    ]);
+});
+
+// User Routes - Accessible at root URL '/'
+Route::group($userRoute, function () {
+    Route::resource('/', UserController::class)->only([
+        'index', 'show', 'edit', 'update', 'destroy', 'create', 'store'
     ]);
 });

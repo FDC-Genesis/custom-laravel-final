@@ -9,6 +9,7 @@ class UserController extends AppController
     public function index()
     {
         // Display a listing of the resource
+        return $this->view('index');
     }
 
     public function create()
