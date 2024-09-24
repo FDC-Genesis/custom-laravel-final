@@ -4,12 +4,11 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
 
 class MakeModel extends Command
 {
     // Command signature with optional arguments and options for migration, controller, factory, and resource
-    protected $signature = 'make:model {name} {entity} {auth?} {--m|migration : Create a migration file for the model} {--c|controller : Create a controller for the model} {--f|factory : Create a factory for the model} {--r|resource : Create a resource controller for the model}';
+    protected $signature = 'make:model {name} {auth?} {entity} {--m|migration : Create a migration file for the model} {--c|controller : Create a controller for the model} {--f|factory : Create a factory for the model} {--r|resource : Create a resource controller for the model}';
 
     protected $description = 'Create a new Eloquent model with optional authentication logic and additional files.';
 
@@ -31,30 +30,17 @@ class MakeModel extends Command
         // Get the 'auth' argument (optional)
         $auth = $this->argument('auth');
 
-        // Validate the entity against allowed entities in config
-        $allowedEntities = config('entities.allowed');
-        if (!in_array($entity, $allowedEntities)) {
-            $this->error("The entity '{$entity}' is not allowed. Allowed entities are: " . implode(', ', $allowedEntities));
-            return; // Exit the command
-        }
-
         // Ensure the directory for models exists, creating it if necessary
         $directory = base_path('laravel/Model');
         if (!is_dir($directory)) {
             mkdir($directory, 0755, true); // Create directory if it doesn't exist
         }
 
-        // Create a directory for the entity if it doesn't exist
-        $authDirectory = base_path("application/{$entity}");
-        if (!is_dir($authDirectory)) {
-            mkdir($authDirectory, 0755, true); // Create auth directory if it doesn't exist
-        }
-
         // Get the content of the stub file
         $stub = file_get_contents($this->getStub($auth));
 
         // Replace the placeholders in the stub
-        $stub = $this->replacePlaceholders($stub, $name, $entity, $auth);
+        $stub = $this->replacePlaceholders($stub, $name, $auth);
 
         // Determine the file path for the new model
         $path = "{$directory}/{$name}.php";
@@ -73,6 +59,19 @@ class MakeModel extends Command
             $this->call('make:factory', ['name' => $name]);
         }
 
+        // Validate the entity against allowed entities in config
+        $allowedEntities = config('entities.allowed');
+        if (!in_array($entity, $allowedEntities)) {
+            $this->error("The entity '{$entity}' is not allowed. Allowed entities are: " . implode(', ', $allowedEntities));
+            return; // Exit the command
+        }
+
+        // Create a directory for the entity if it doesn't exist
+        $authDirectory = base_path("application/{$entity}");
+        if (!is_dir($authDirectory)) {
+            mkdir($authDirectory, 0755, true); // Create auth directory if it doesn't exist
+        }
+
         // Handle controller creation if the option is provided
         if ($this->option('controller') || $this->option('resource')) {
             $controllerOptions = [];
@@ -87,12 +86,10 @@ class MakeModel extends Command
     }
 
     // Replace placeholders in the stub
-    protected function replacePlaceholders($stub, $name, $entity, $auth)
+    protected function replacePlaceholders($stub, $name, $auth)
     {
         // Replace the {{ class }} placeholder with the model name
         $stub = str_replace('{{ class }}', $name, $stub);
-        // Replace the {{ entity }} placeholder with the entity name
-        $stub = str_replace('{{ entity }}', $entity, $stub);
 
         // Handle the 'auth' argument for both use statements and method implementations
         if ($auth === 'auth') {
