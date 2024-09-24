@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -32,5 +33,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Add namespace for Admin views
         View::addNamespace('Admin', base_path('application/Admin/View'));
+
+        Paginator::useBootstrapFive();
     }
 }
