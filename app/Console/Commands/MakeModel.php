@@ -73,7 +73,7 @@ class MakeModel extends Command
                 $controllerOptions['--resource'] = true;
             }
             $this->call('make:controller', array_merge($controllerOptions, [
-                'name' => "{$name}Controller",
+                'name' => "{$name}",
                 'entity' => $entity
             ]));
         }
