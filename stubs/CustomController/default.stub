@@ -1,6 +1,6 @@
 <?php
 
-namespace {{ namespace }};
+namespace {{ namespace }}\Controller;
 
 use Laravel\MainController\AppController;
 use Illuminate\Http\Request;

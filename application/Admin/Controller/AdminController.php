@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Admin;
+namespace Application\Admin\Controller;
 
 use Laravel\MainController\AppController;
 use Illuminate\Http\Request;

@@ -49,7 +49,7 @@ class MakeController extends Command
         $stub = $this->replacePlaceholders($stub, $name, $entity);
 
         // Define the path for the new controller
-        $directory = base_path("application/{$entity}");
+        $directory = base_path("application/{$entity}/Controller");
         if (!is_dir($directory)) {
             mkdir($directory, 0755, true);
         }
