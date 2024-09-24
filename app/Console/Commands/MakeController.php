@@ -63,9 +63,9 @@ class MakeController extends Command
     // Determine which stub to use based on the resource option
     protected function getStub()
     {
-        return $this->option('resource')
+        return file_get_contents($this->option('resource')
             ? base_path('stubs/CustomController/resource.stub')
-            : base_path('stubs/CustomController/default.stub');
+            : base_path('stubs/CustomController/default.stub'));
     }
 
     // Replace placeholders in the stub

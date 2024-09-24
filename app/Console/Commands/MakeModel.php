@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class MakeModel extends Command
 {
     // Command signature with optional arguments and options for migration, controller, factory, and resource
-    protected $signature = 'make:model {name} {auth?} {entity} {--m|migration : Create a migration file for the model} {--c|controller : Create a controller for the model} {--f|factory : Create a factory for the model} {--r|resource : Create a resource controller for the model}';
+    protected $signature = 'make:model {name} {auth?} {entity?} {--m|migration : Create a migration file for the model} {--c|controller : Create a controller for the model} {--f|factory : Create a factory for the model} {--r|resource : Create a resource controller for the model}';
 
     protected $description = 'Create a new Eloquent model with optional authentication logic and additional files.';
 
@@ -59,21 +59,15 @@ class MakeModel extends Command
             $this->call('make:factory', ['name' => $name]);
         }
 
-        // Validate the entity against allowed entities in config
-        $allowedEntities = config('entities.allowed');
-        if (!in_array($entity, $allowedEntities)) {
-            $this->error("The entity '{$entity}' is not allowed. Allowed entities are: " . implode(', ', $allowedEntities));
-            return; // Exit the command
-        }
-
-        // Create a directory for the entity if it doesn't exist
-        $authDirectory = base_path("application/{$entity}");
-        if (!is_dir($authDirectory)) {
-            mkdir($authDirectory, 0755, true); // Create auth directory if it doesn't exist
-        }
-
         // Handle controller creation if the option is provided
         if ($this->option('controller') || $this->option('resource')) {
+            // Validate the entity against allowed entities in config
+            $allowedEntities = config('entities.allowed');
+            if (!in_array($entity, $allowedEntities)) {
+                $this->error("The entity '{$entity}' is not allowed. Allowed entities are: " . implode(', ', $allowedEntities));
+                return; // Exit the command
+            }
+
             $controllerOptions = [];
             if ($this->option('resource')) {
                 $controllerOptions['--resource'] = true;
