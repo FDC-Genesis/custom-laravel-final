@@ -2,7 +2,6 @@
 
 namespace {{ namespace }}\Controller;
 
-use Laravel\MainController\AppController;
 use Illuminate\Http\Request;
 
 class {{ class }} extends AppController

@@ -42,17 +42,37 @@ class MakeController extends Command
             return;
         }
 
+        $directory = base_path("application/{$entity}/Controller");
+        if (!is_dir($directory)) {
+            mkdir($directory, 0755, true);
+        }
+
+        // Define the path of the file to check
+        $filePath = base_path("application/$entity/Controller/AppController.php");
+
+        // Define the path of the stub file
+        $stubPath = base_path('stubs/CustomController/appcontroller.stub');
+
+        // Check if the file already exists
+        if (!file_exists($filePath)) {
+            // If the file does not exist, read the stub content
+            $stubContent = file_get_contents($stubPath);
+            
+            // Replace {{ entity }} with the value of $entity
+            $fileContent = str_replace('{{ entity }}', $entity, $stubContent);
+            
+            // Write the modified content to the new file
+            file_put_contents($filePath, $fileContent);
+            
+            $this->info("File created at: {$filePath}");
+        }
+
         // Determine the stub file based on the resource option
         $stub = $this->getStub();
 
         // Replace placeholders in the stub
         $stub = $this->replacePlaceholders($stub, $name, $entity);
 
-        // Define the path for the new controller
-        $directory = base_path("application/{$entity}/Controller");
-        if (!is_dir($directory)) {
-            mkdir($directory, 0755, true);
-        }
         $path = "{$directory}/{$name}Controller.php";
 
         // Save the generated controller to the file path

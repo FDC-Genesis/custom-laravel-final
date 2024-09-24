@@ -2,7 +2,6 @@
 
 namespace Application\Admin\Controller;
 
-use Laravel\MainController\AppController;
 use Illuminate\Http\Request;
 
 class AdminController extends AppController
@@ -10,8 +9,6 @@ class AdminController extends AppController
     public function index()
     {
         // Display a listing of the resource
-
-        return view('Admin::Admin.index');
     }
 
     public function create()

@@ -2,10 +2,9 @@
 
 namespace Application\User\Controller;
 
-use Laravel\MainController\AppController;
 use Illuminate\Http\Request;
 
-class UserControllerController extends AppController
+class UserController extends AppController
 {
     public function index()
     {
