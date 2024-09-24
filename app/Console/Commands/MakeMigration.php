@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\File;
 
 class MakeMigration extends Command
 {
-    protected $signature = 'make:migration {name}';
+    protected $signature = 'make:migration {name}  {--auth : Add Columns}';
     protected $description = 'Create a new migration file with a given name';
 
     public function handle()
@@ -40,6 +40,9 @@ class MakeMigration extends Command
 
     protected function getStub()
     {
+        if ($this->option('auth')){
+            return file_get_contents(base_path('stubs/CustomMigration/auth.stub'));
+        }
         return file_get_contents(base_path('stubs/CustomMigration/default.stub'));
     }
 

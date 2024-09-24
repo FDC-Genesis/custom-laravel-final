@@ -51,7 +51,11 @@ class MakeModel extends Command
 
         // Handle migration creation if the option is provided
         if ($this->option('migration')) {
-            $this->call('make:migration', ['name' => Str::plural($name)]); // Use plural for migration
+            $migrationArr = ['name' => Str::plural($name)];
+            if ($auth === 'auth') {
+                $migrationArr['--auth'] = true;
+            }
+            $this->call('make:migration', $migrationArr); // Use plural for migration
         }
 
         // Handle factory creation if the option is provided
