@@ -73,7 +73,7 @@ return [
         ],
 
         'users' => [
-            'driver' => 'database',
+            'driver' => 'eloquent',
             'model' => User::class,
         ],
     ],
