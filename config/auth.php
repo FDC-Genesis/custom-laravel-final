@@ -1,6 +1,7 @@
 <?php
 
 use Laravel\Model\Admin;
+use Laravel\Model\User;
 
 return [
 
@@ -16,7 +17,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'user',
         'passwords' => 'users',
     ],
 
@@ -38,13 +39,13 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
+        ],
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
         ],
     ],
 
@@ -71,10 +72,10 @@ return [
             'model' => Admin::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'users' => [
+            'driver' => 'database',
+            'model' => User::class,
+        ],
     ],
 
     /*

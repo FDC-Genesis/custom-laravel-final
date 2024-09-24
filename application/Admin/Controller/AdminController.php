@@ -9,6 +9,7 @@ class AdminController extends AppController
     public function index()
     {
         // Display a listing of the resource
+        return $this->view('admin.index');
     }
 
     public function create()

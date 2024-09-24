@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class MakeModel extends Command
 {
     // Command signature with optional arguments and options for migration, controller, factory, and resource
-    protected $signature = 'make:model {name} {auth?} {entity?} {--m|migration : Create a migration file for the model} {--c|controller : Create a controller for the model} {--f|factory : Create a factory for the model} {--r|resource : Create a resource controller for the model}';
+    protected $signature = 'make:model {name} {auth?} {--m|migration : Create a migration file for the model} {--c|controller : Create a controller for the model} {--f|factory : Create a factory for the model} {--r|resource : Create a resource controller for the model} {entity?}';
 
     protected $description = 'Create a new Eloquent model with optional authentication logic and additional files.';
 
