@@ -2,7 +2,13 @@
 
 return [
     'routes' => [
-        0 => ['prefix' => 'admin', 'as'=>'admin.'],
-        1 => ['prefix' => '', 'as'=>'user.'], 
+        'admin' => [
+            'prefix' => 'admin',
+            'as'=>'admin.'
+        ],
+        'user' => [
+            'prefix' => '',
+            'as'=>'user.'
+        ], 
     ]
 ];

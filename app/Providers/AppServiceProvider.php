@@ -20,6 +20,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (!defined('ADMIN_ROUTER')) {
+            define('ADMIN_ROUTER', base_path('application/Admin/Routes/routes.php'));
+        }
+        if (!defined('USER_ROUTER')) {
+            define('USER_ROUTER', base_path('application/User/Routes/routes.php'));
+        }
+        
         // Add namespace for User views
         View::addNamespace('User', base_path('application/User/View'));
 
