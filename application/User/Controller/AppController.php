@@ -11,13 +11,13 @@ class AppController extends Controller
     public function __construct(){
         $this->view = 'User';
     }
-    protected function view($viewName = null, array $data = [])
+    protected function view($viewName = null, array $data = [], array $mergeData = [])
     {
         // Construct the view path dynamically
         $viewPath = $viewName ? "{$this->view}::{$viewName}" : "{$this->view}::";
 
         // Pass data to the view
-        return view($viewPath, $data);
+        return view($viewPath, $data, $mergeData);
     }
     public function handleLogin(){
         
